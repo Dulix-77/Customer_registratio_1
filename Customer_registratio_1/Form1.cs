@@ -22,48 +22,49 @@ namespace Customer_registratio_1
 
         private void btn_register_Click(object sender, EventArgs e)
         {
-                  SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=MotorSpa;Integrated Security=True");
+            int tp;
+            int nic;
 
-                //string fName, lName, email, NIC, Address;
-                int tp;
-                int nic;
-
-                tp = Convert.ToInt32(txt_phoneNo.Text);
-                nic = Convert.ToInt32(txt_nicNumber.Text);
-
-                SqlCommand cmd = new SqlCommand("Insert into Customer values ('" + txt_cid.Text + "','" + txt_fName.Text + "','" + txt_lname.Text + "','" + txt_Email.Text + "','" + txt_phoneNo.Text + "','" + txt_Address.Text + "','" + txt_nicNumber.Text + "')", con);
+            tp = Convert.ToInt32(txt_phoneNo.Text);
+            nic = Convert.ToInt32(txt_nicNumber.Text);
 
             try
             {
+                SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=MotorSpa;Integrated Security=True");
+                con.Open();
+                SqlCommand cmd = new SqlCommand("Insert into Customer values ('" + txt_cid.Text + "','" + txt_fName.Text + "','" + txt_lname.Text + "','" + txt_Email.Text + "','" + txt_phoneNo.Text + "','" + txt_Address.Text + "','" + txt_nicNumber.Text + "')", con);
+
+              
+
                 if (txt_fName.Text.Any(char.IsDigit) || string.IsNullOrEmpty(txt_fName.Text))
                 {
                     MessageBox.Show("First Name cannot have numbers or cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (txt_lname.Text.Any(char.IsDigit) || string.IsNullOrEmpty(txt_lname.Text))
+                else if (txt_lname.Text.Any(char.IsDigit) || string.IsNullOrEmpty(txt_lname.Text))
                 {
                     MessageBox.Show("Last Name cannot have numbers or cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (txt_phoneNo.Text.Any(char.IsLetter) || string.IsNullOrEmpty(txt_phoneNo.Text))
+                else if (txt_phoneNo.Text.Any(char.IsLetter) || string.IsNullOrEmpty(txt_phoneNo.Text))
                 {
                     MessageBox.Show("Telephone cannot be empty or cannot have letters", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (string.IsNullOrEmpty(txt_cid.Text))
+                else if (string.IsNullOrEmpty(txt_cid.Text))
                 {
                     MessageBox.Show("Customer ID cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (string.IsNullOrEmpty(txt_Address.Text))
+                else if (string.IsNullOrEmpty(txt_Address.Text))
                 {
                     MessageBox.Show("Address cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (txt_nicNumber.Text.Length == 0)
+                else if (txt_nicNumber.Text.Length == 0)
                 {
                     MessageBox.Show("NIC number cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                int i = cmd.ExecuteNonQuery();
-                if (i == 1)
+                else
                 {
-                 MessageBox.Show(this, "data saved succesfully", "information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   MessageBox.Show(this, "data saved succesfully", "information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                con.Close();
             }
             catch (FormatException)
             {
@@ -73,11 +74,6 @@ namespace Customer_registratio_1
             {
                 MessageBox.Show("somthing went wrong", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            con.Open();
-            cmd.ExecuteNonQuery();
-            con.Close();
-
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
