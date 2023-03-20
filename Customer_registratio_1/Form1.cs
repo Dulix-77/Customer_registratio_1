@@ -22,18 +22,11 @@ namespace Customer_registratio_1
 
         private void btn_register_Click(object sender, EventArgs e)
         {
-            //int tp;
-            //int nic;
-
-           // tp = Convert.ToInt32(txt_phoneNo.Text);
-            //nic = Convert.ToInt32(txt_nicNumber.Text);
-
+           
             try
             {
-                SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=MotorSpa;Integrated Security=True");
+                SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=motar;Integrated Security=True");
                 con.Open();
-                SqlCommand cmd = new SqlCommand("Insert into Customer values ('" + txt_cid.Text + "','" + txt_fName.Text + "','" + txt_lname.Text + "','" + txt_Email.Text + "','" + txt_phoneNo.Text + "','" + txt_Address.Text + "','" + txt_nicNumber.Text + "')", con);
-
 
                 if (txt_fName.Text.Any(char.IsDigit) || string.IsNullOrEmpty(txt_fName.Text))
                 {
@@ -61,9 +54,12 @@ namespace Customer_registratio_1
                 }
                 else
                 {
-                   MessageBox.Show(this, "data saved succesfully", "information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    SqlCommand cmd = new SqlCommand("Insert into Customer values ('" + txt_cid.Text + "','" + txt_fName.Text + "','" + txt_lname.Text + "','" + txt_Email.Text + "','" + txt_phoneNo.Text + "','" + txt_Address.Text + "','" + txt_nicNumber.Text + "')", con);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show(this, "data saved succesfully", "information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                con.Close();
+                
             }
             catch (FormatException)
             {
