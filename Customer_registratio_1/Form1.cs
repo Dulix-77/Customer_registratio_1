@@ -22,11 +22,11 @@ namespace Customer_registratio_1
 
         private void btn_register_Click(object sender, EventArgs e)
         {
-            int tp;
-            int nic;
+            //int tp;
+            //int nic;
 
-            tp = Convert.ToInt32(txt_phoneNo.Text);
-            nic = Convert.ToInt32(txt_nicNumber.Text);
+           // tp = Convert.ToInt32(txt_phoneNo.Text);
+            //nic = Convert.ToInt32(txt_nicNumber.Text);
 
             try
             {
@@ -34,7 +34,6 @@ namespace Customer_registratio_1
                 con.Open();
                 SqlCommand cmd = new SqlCommand("Insert into Customer values ('" + txt_cid.Text + "','" + txt_fName.Text + "','" + txt_lname.Text + "','" + txt_Email.Text + "','" + txt_phoneNo.Text + "','" + txt_Address.Text + "','" + txt_nicNumber.Text + "')", con);
 
-              
 
                 if (txt_fName.Text.Any(char.IsDigit) || string.IsNullOrEmpty(txt_fName.Text))
                 {
@@ -74,6 +73,7 @@ namespace Customer_registratio_1
             {
                 MessageBox.Show("somthing went wrong", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
