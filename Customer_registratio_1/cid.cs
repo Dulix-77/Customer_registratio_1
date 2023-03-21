@@ -14,7 +14,7 @@ namespace Customer_registratio_1
 
         public cid()
         {
-             con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=mtester;Integrated Security=True");
+             con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=motar_1;Integrated Security=True");
         }
         public int Autocid()
         {

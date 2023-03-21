@@ -23,7 +23,7 @@ namespace Customer_registratio_1
        
       
         SqlCommand cmd;
-        SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=mtester;Integrated Security=True");
+        SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=motar_1;Integrated Security=True");
         cid c1 = new cid();
 
         private void btn_register_Click(object sender, EventArgs e)
@@ -86,8 +86,13 @@ namespace Customer_registratio_1
             }
             catch (Exception)
             {
-                MessageBox.Show("somthing went wrong", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("somthing went wrong,please close the appliction and trt again", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (SqlException)
+            {
+                MessageBox.Show("Have enterd 'Customer ID' Or 'EMAIL' Or 'NIC' twice, please check and try again later", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+          
             
         }
 
