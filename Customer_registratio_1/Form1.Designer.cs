@@ -44,6 +44,7 @@
             this.txt_phoneNo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txt_cid = new System.Windows.Forms.TextBox();
+            this.exit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -178,11 +179,22 @@
             this.txt_cid.Size = new System.Drawing.Size(236, 26);
             this.txt_cid.TabIndex = 15;
             // 
+            // exit
+            // 
+            this.exit.Location = new System.Drawing.Point(629, 269);
+            this.exit.Name = "exit";
+            this.exit.Size = new System.Drawing.Size(97, 36);
+            this.exit.TabIndex = 16;
+            this.exit.Text = "exit";
+            this.exit.UseVisualStyleBackColor = true;
+            this.exit.Click += new System.EventHandler(this.exit_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1137, 608);
+            this.Controls.Add(this.exit);
             this.Controls.Add(this.txt_cid);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txt_phoneNo);
@@ -224,6 +236,7 @@
         private System.Windows.Forms.TextBox txt_phoneNo;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txt_cid;
+        private System.Windows.Forms.Button exit;
     }
 }
 

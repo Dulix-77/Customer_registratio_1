@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace Customer_registratio_1
 {
@@ -25,10 +26,14 @@ namespace Customer_registratio_1
            
             try
             {
-                SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=motar;Integrated Security=True");
+                SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=mtester;Integrated Security=True");
                 con.Open();
 
-                if (txt_fName.Text.Any(char.IsDigit) || string.IsNullOrEmpty(txt_fName.Text))
+                if(string.IsNullOrEmpty(txt_cid.Text))
+                {
+                    MessageBox.Show("customer ID caannot be Blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (txt_fName.Text.Any(char.IsDigit) || string.IsNullOrEmpty(txt_fName.Text))
                 {
                     MessageBox.Show("First Name cannot have numbers or cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -36,19 +41,27 @@ namespace Customer_registratio_1
                 {
                     MessageBox.Show("Last Name cannot have numbers or cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else if (!Regex.IsMatch(txt_Email.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+                {
+                    MessageBox.Show("invalid Email", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 else if (txt_phoneNo.Text.Any(char.IsLetter) || string.IsNullOrEmpty(txt_phoneNo.Text))
                 {
                     MessageBox.Show("Telephone cannot be empty or cannot have letters", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                else if (string.IsNullOrEmpty(txt_cid.Text))
+                else if(txt_phoneNo.Text.Length <10 || txt_phoneNo.Text.Length > 10)
                 {
-                    MessageBox.Show("Customer ID cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid telephonr number", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (string.IsNullOrEmpty(txt_Address.Text))
                 {
                     MessageBox.Show("Address cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                else if (txt_nicNumber.Text.Length == 0)
+                else if (txt_nicNumber.Text.Length <10 || txt_nicNumber.Text.Length > 10)
+                {
+                    MessageBox.Show("invalid nic number", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if(txt_nicNumber.Text == null)
                 {
                     MessageBox.Show("NIC number cannot be blank", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -58,9 +71,9 @@ namespace Customer_registratio_1
                     cmd.ExecuteNonQuery();
                     con.Close();
                     MessageBox.Show(this, "data saved succesfully", "information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                
+                }  
             }
+
             catch (FormatException)
             {
                 MessageBox.Show("Enter Numbers only", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -81,6 +94,12 @@ namespace Customer_registratio_1
             txt_Address.Clear();
             txt_nicNumber.Clear();
             txt_phoneNo.Clear();
+        }
+
+        private void exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+                
         }
     }
 }
