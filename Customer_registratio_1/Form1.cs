@@ -9,24 +9,30 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace Customer_registratio_1
 {
     public partial class Form1 : Form
     {
+       
         public Form1()
         {
             InitializeComponent();
         }
-        SqlConnection con;
+       
+      
         SqlCommand cmd;
+        SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=mtester;Integrated Security=True");
+        cid c1 = new cid();
 
         private void btn_register_Click(object sender, EventArgs e)
         {
            
+
             try
             {
-                SqlConnection con = new SqlConnection("Data Source=DESKTOP-3T08844;Initial Catalog=mtester;Integrated Security=True");
+              
                 con.Open();
 
                 if(string.IsNullOrEmpty(txt_cid.Text))
@@ -99,7 +105,12 @@ namespace Customer_registratio_1
         private void exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
-                
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            txt_cid.Text = "C00" + c1.Autocid();
+           
         }
     }
 }
